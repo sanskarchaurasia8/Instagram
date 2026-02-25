@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema({
     profileImage: {
         type: String,
         default: "https://ik.imagekit.io/6nq7jrnau/default-user.webp"
-    }
+    },
+    
+    
 })
 
 const userModel = mongoose.model("users",userSchema)

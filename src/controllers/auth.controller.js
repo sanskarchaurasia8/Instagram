@@ -1,4 +1,4 @@
- const crypto = require("crypto")
+ const bcrypt = require("bcryptjs")
 const userModel = require("../models/user.model")
 const jwt = require("jsonwebtoken")
  
@@ -37,7 +37,7 @@ const jwt = require("jsonwebtoken")
         })
     }
 
-    const hash = crypto.createHash('sha256').update(password).digest('hex')
+    const hash = await bcrypt.hash(password,10)
 
     const user = await userModel.create({
         username,
@@ -100,10 +100,8 @@ const jwt = require("jsonwebtoken")
                 message: "user not found"
             })
         }
-        const hash = crypto.createHash('sha256').update(password).digest('hex')
 
-        const isPasswordValid = hash == user.password
-
+        const isPasswordValid = await bcrypt.compare(password , user.password)
         if(!isPasswordValid){
             return res.status(401).json({
                 message: "password Incorrect"

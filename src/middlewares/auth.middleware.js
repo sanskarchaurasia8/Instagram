@@ -22,4 +22,6 @@ async function identifyUser(req,res,next){
     next()
 }
 
+/*req.user*/
+
 module.exports = identifyUser
